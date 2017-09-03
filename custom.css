@@ -35,8 +35,8 @@ body {
   background: linear-gradient(lightblue, blue);
   
   /* Add a Mars background that will cover the screen */
-  background-image: url("http://www.ohiofi.com/img/mars.jpg");
-  background-size: cover;
+  /*background-image: url("http://www.ohiofi.com/img/mars.jpg");
+  background-size: cover;*/
 }
 
 img { /* Images won't get wider than tw-passage container */
