@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Twine Example</title>
+<title>Twine Fray</title>
 <link rel="stylesheet" type="text/css" href="twineDefault.css">
 <link rel="stylesheet" type="text/css" href="custom.css">
 </head>
@@ -10,23 +10,29 @@
 <tw-story></tw-story>
 <tw-storydata startnode="1">
 
+  
+  <!-- Title Screen -->
+  
 
   <tw-passagedata pid="1" name="Title Screen">
-  Valhalla V: Odin&#x27;s Revenge
+  Valhalla V: Odin's Revenge
   by Mr. Riley
 
-  [[CLICK HERE TO START-&gt;Town]]
+  [[CLICK HERE TO START->Town]]<!-- Glitch has lots of "Special characters must be escaped" errors you can ignore. -->
   (set: $health to 100)
   (set: $sword to 0)
   (set: $ax to 0)
   (set: $coins to 5)
   (set: $points to 0)
-  <audio controls loop autoplay>
+  <audio controls loop autoplay><!-- Controls allow the player to turn off the soundtrack. The audio will loop & autoplay. Glitch has a "Special characters must be escaped" error on the next line, but just ignore it. If you fix this error, then the soundtrack will not play throughout the game. -->
     <source src="http://www.ohiofi.com/share/Justin%20Riley/JustinsLoveLockdownRemix.mp3"; type="audio/mpeg">
-    Your browser does not support the HTML5 audio element.
+    Your browser does not support MP3 play via the HTML5 audio element.<!-- Error message just in case -->
   </audio>
   </tw-passagedata>
 
+  
+  <!-- The Town Square -->
+  
 
   <tw-passagedata name="Town">You are standing in the middle of town.
   Where do you want to go?
@@ -39,15 +45,16 @@
   <!-- The Market and the items for sale in the Market -->
   
   
-  <tw-passagedata name="Market">(if: $coins &gt;= 10)[
+  <tw-passagedata name="Market">(if: $coins >= 10)[
+    You have (color:yellow)[$coins coins].
   	[[Buy A Healing Potion For 10 Coins]] ]
   (else:)[
   	Healing potions cost 10, but you only have $coins. ]
-  (if: $coins &gt;= 50)[
+  (if: $coins >= 50)[
   	[[Buy A Sword For 50 Coins]] ]
   (else:)[
   	Swords cost 50, but you only have $coins. ]
-  (if: $coins &gt;= 100)[
+  (if: $coins >= 100)[
   	[[Buy An Ax For 100 Coins]] ]
   (else:)[
   	An ax costs 100, but you only have $coins. ]
@@ -56,47 +63,57 @@
   
   <tw-passagedata name="Buy A Healing Potion For 10 Coins">(set: $health to $health + 10)(set: $coins to $coins - 10)
   (color:green)[+10 health!]
-  You now have $health health!
+  You now have (color:orange)[$health health]!
   (color:red)[-10 coins.]
-  You now have $coins coins.
+  You now have (color:yellow)[$coins coins].
 
-  (display:&quot;Market&quot;)</tw-passagedata>
+  (display:"Market")</tw-passagedata>
 
 
   <tw-passagedata name="Buy A Sword For 50 Coins">(set: $sword to $sword + 1)(set: $coins to $coins - 50)
   (color:green)[+1 sword!]
   You now have a Level $sword sword!
   (color:red)[-50 coins.]
-  You now have $coins coins.
+  You now have (color:yellow)[$coins coins].
 
-  (display:&quot;Market&quot;)</tw-passagedata>
+  (display:"Market")</tw-passagedata>
 
 
   <tw-passagedata name="Buy An Ax For 100 Coins">(set: $ax to $ax + 1)(set: $coins to $coins - 100)
   (color:green)[+1 ax!]
   You now have a Level $ax ax!
   (color:red)[-100 coins.]
-  You now have $coins coins.
+  You now have (color:yellow)[$coins coins].
 
-  (display:&quot;Market&quot;)</tw-passagedata>
+  (display:"Market")</tw-passagedata>
   
   
   <!-- Locations in which we might battle some enemies -->
-
-
-  <tw-passagedata name="Graveyard">(if: (random:1,5) is &gt; 2)[
-  (set:$location to &quot;Graveyard&quot;)
-  (display: &quot;Enemy Appears&quot;)
+  
+  
+  <tw-passagedata name="Farm">(if: (random:1,2) is 1)[<!-- 50% chance of Enemy Appears -->
+    (set:$location to "Farm")
+    (display: "Enemy Appears")
   ]
   (else:)[
-  The graveyard looks empty... //for now.//
-  Go back to [[Town]]
+    The farm looks empty... //for now.//
+    Go back to [[Town]]
   ]</tw-passagedata>
 
 
-  <tw-passagedata name="Castle">(if: (random:1,3) is &gt; 1)[
-  	(set:$location to &quot;Castle&quot;)
-  	(display: &quot;Enemy Appears&quot;)
+  <tw-passagedata name="Graveyard">(if: (random:1,20) > 9)[<!-- 55% chance of Enemy Appears -->
+    (set:$location to "Graveyard")
+    (display: "Enemy Appears")
+  ]
+  (else:)[
+    The graveyard looks empty... //for now.//
+    Go back to [[Town]]
+  ]</tw-passagedata>
+
+
+  <tw-passagedata name="Castle">(if: (random:1,5) > 2)[<!-- 60% chance of Enemy Appears -->
+  	(set:$location to "Castle")
+  	(display: "Enemy Appears")
   ]
   (else:)[
   	The castle looks empty... //for now.//
@@ -104,37 +121,27 @@
   ]</tw-passagedata>
   
   
-  <tw-passagedata name="Farm">(if: (random:1,2) is 1)[
-  (set:$location to &quot;Farm&quot;)
-  (display: &quot;Enemy Appears&quot;)
-  ]
-  (else:)[
-  The farm looks empty... //for now.//
-  Go back to [[Town]]
-  ]</tw-passagedata>
-  
-  
   <!-- Our battle system -->
 
 
-  <tw-passagedata name="Enemy Appears">(set: $enemyName to (either:&quot;Giant Spider&quot;,&quot;Zombie&quot;,&quot;Ghost&quot;,&quot;Pizza Rat&quot;))
+  <tw-passagedata name="Enemy Appears">(set: $enemyName to (either:"Giant Spider","Zombie","Ghost","Pizza Rat"))
   A $enemyName crawls out of the shadows!
   (set: $enemyhealth to (random:20,40)+($points*.1))
   (set: $punch to (random:1,9))
   (set: $kick to 10 - $punch)
-  (display: &quot;Enemy Hits You&quot;)</tw-passagedata>
+  (display: "Enemy Hits You")</tw-passagedata>
 
 
-  <tw-passagedata  name="Enemy Hits You">(if: $enemyhealth &gt; 0)[
+  <tw-passagedata  name="Enemy Hits You">(if: $enemyhealth > 0)[
   	(set: $enemyHit to (random:1,3)+(random:1,3))
   	(color:red)[The $enemyName ATTACKS YOU! //-$enemyHit//]
   	(set: $health to $health - $enemyHit)
-  	You have $health health.
-  	(if: $health &gt; 0)[
-  		(display: &quot;Use Weapon&quot;)
+  	You have (color:orange)[$health health].
+  	(if: $health > 0)[
+  		(display: "Use Weapon")
   	]
   	(else:)[
-  		(display: &quot;You Died&quot;)
+  		(display: "You Died")
   	]
   ]
   (else:)[
@@ -142,7 +149,8 @@
   	(set: $points to $points + 10)
   	(set: $randomcoins to (random:25,50))
   	(set: $coins to $coins + $randomcoins)
-  	//+$randomcoins coins!// You now have $coins coins.
+  	//+$randomcoins coins!// You now have (color:yellow)[$coins coins].
+    You now have (color:orange)[$health health].
   	[[Continue]]
   ]</tw-passagedata>
 
@@ -153,8 +161,8 @@
 
   <tw-passagedata name="Use Weapon">[[Punch]]
   [[Kick]]
-  (if: $sword &gt; 0)[	[[Use Sword]] ]
-  (if: $ax &gt; 0)[	[[Use Ax]] ]</tw-passagedata>
+  (if: $sword > 0)[	[[Use Sword]] ]
+  (if: $ax > 0)[	[[Use Ax]] ]</tw-passagedata>
 
 
   <tw-passagedata name="Punch">(set: $hit to $punch + (random:1,6))
@@ -166,7 +174,7 @@
   	(set: $points to $points + $hit)
   	You PUNCH the $enemyName! (color:green)[-$hit]
   ]
-  (display: &quot;Enemy Hits You&quot;)</tw-passagedata>
+  (display: "Enemy Hits You")</tw-passagedata>
 
 
   <tw-passagedata name="Kick">(set: $hit to $kick + (random:1,6))
@@ -178,8 +186,9 @@
   	(set: $points to $points + $hit)
   	You KICK the $enemyName! (color:green)[-$hit]
   ]
-  (display: &quot;Enemy Hits You&quot;)</tw-passagedata>
+  (display: "Enemy Hits You")</tw-passagedata>
 
+  
   <tw-passagedata name="Use Sword">(set: $hit to 10 + (random:1,6) + (random:1,6))
   (if: (random:1,10) is 1)[
   	You tried to SLASH it with your sword but you missed!
@@ -189,11 +198,11 @@
   	(set: $points to $points + $hit)
   	You SLASH the $enemyName with your sword! (color:green)[-$hit]
   ]
-  (display: &quot;Enemy Hits You&quot;)</tw-passagedata>
+  (display: "Enemy Hits You")</tw-passagedata>
 
 
   <tw-passagedata name="Use Ax">(set: $hit to 20 + (random:1,6) + (random:1,6))(if: (random:1,12) is 1)[You tried to SLASH it with your ax but you missed!](else:)[(set: $enemyhealth to $enemyhealth - $hit)(set: $points to $points + $hit)You SLASH the $enemyName with your ax! (color:green)[-$hit]]
-  (display: &quot;Enemy Hits You&quot;)</tw-passagedata>
+  (display: "Enemy Hits You")</tw-passagedata>
 
 
   <tw-passagedata name="You Died">(color:red)[☠ You died! ☠
