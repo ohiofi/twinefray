@@ -1,0 +1,44 @@
+
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+
+tw-story {
+  /* The following changes the text */
+  color: darkgreen; /* Set text to green or other color */
+  text-shadow: 1px 1px lightgreen; /* Green text shadow */
+  font-size: 20px;
+  font-family: "Press Start 2P","Helvetica","Arial",sans-serif;
+}
+
+tw-passage {
+  /* The following changes the text box */
+  border: 5px groove gray; /* Gray border around the box */
+  border-radius: 25px; /* Rounded corners on the box */
+  background: rgba(255,255,255,0.7); /* 30% transparent box */
+  padding: 25px;
+}
+
+tw-link {
+  color:darkblue; /* Set the link color to darkblue */
+  transition: color .5s ease-in-out;
+}
+
+tw-link:hover { /* Mouse over a link & it turns orange */
+  color: orange;
+}
+
+body {
+  /* Set background to fade lightblue to blue */
+  background: lightblue; /* For old browsers */    
+  background: -webkit-linear-gradient(lightblue, blue);
+  background: -o-linear-gradient(lightblue, blue);
+  background: -moz-linear-gradient(lightblue, blue);
+  background: linear-gradient(lightblue, blue);
+  
+  /* Add a Mars background that will cover the screen */
+  background-image: url("http://www.ohiofi.com/img/mars.jpg");
+  background-size: cover;
+}
+
+img { /* Images won't get wider than tw-passage container */
+  max-width: 100%;
+}
