@@ -18,4 +18,4 @@ _Add links:_<br>
 Add links **\[\[like this\]\]** just like a normal Twine game
 
 _Note:_<br>
-Your starting passage must have pid=\"1\" or else Twine doesn't know where to start the story
+Your starting passage must have pid=\"1\" or else Twine doesn't know where to start the story. For example, \<tw-passagedata name=\"My Start Passage\" **pid=\"1\"** \> Passage text \</tw-passagedata\>
