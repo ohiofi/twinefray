@@ -10,9 +10,9 @@
 <tw-story></tw-story>
 <tw-storydata startnode="1">
 
-  
+
   <!-- Title Screen -->
-  
+
 
   <tw-passagedata pid="1" name="Title Screen">
   Valhalla V: Odin's Revenge
@@ -30,9 +30,9 @@
   </audio>
   </tw-passagedata>
 
-  
+
   <!-- The Town Square -->
-  
+
 
   <tw-passagedata name="Town">You are standing in the middle of town.
   Where do you want to go?
@@ -40,11 +40,11 @@
   [[Castle]]
   [[Graveyard]]
   [[Farm]]</tw-passagedata>
-  
-  
+
+
   <!-- The Market and the items for sale in the Market -->
-  
-  
+
+
   <tw-passagedata name="Market">(if: $coins >= 10)[
     You have (color:yellow)[$coins coins].
   	[[Buy A Healing Potion For 10 Coins]] ]
@@ -59,8 +59,8 @@
   (else:)[
   	An ax costs 100, but you only have $coins. ]
   Return to [[Town]]</tw-passagedata>
-  
-  
+
+
   <tw-passagedata name="Buy A Healing Potion For 10 Coins">(set: $health to $health + 10)(set: $coins to $coins - 10)
   (color:green)[+10 health!]
   You now have (color:orange)[$health health]!
@@ -86,12 +86,11 @@
   You now have (color:yellow)[$coins coins].
 
   (display:"Market")</tw-passagedata>
-  
-  
+
 
   <!-- Locations in which we might battle some enemies -->
-  
-  
+
+
   <tw-passagedata name="Farm">(if: (random:1,2) is 1)[<!-- 50% chance of Enemy Appears -->
     (set:$location to "Farm")
     (display: "Enemy Appears")
@@ -120,8 +119,7 @@
   	The castle looks empty... //for now.//
   	Go back to [[Town]]
   ]</tw-passagedata>
-  
-  
+
 
   <!-- Our battle system -->
 
@@ -190,7 +188,7 @@
   ]
   (display: "Enemy Hits You")</tw-passagedata>
 
-  
+
   <tw-passagedata name="Use Sword">(set: $hit to 10 + (random:1,6) + (random:1,6))
   (if: (random:1,10) is 1)[
   	You tried to SLASH it with your sword but you missed!
